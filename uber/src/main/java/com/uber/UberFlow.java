@@ -35,9 +35,12 @@ public class UberFlow {
         Viaje viaje = pasajeroApp.seleccionarDestino("Los Pozos 123","Rivadavia 123"); 
 
         // elijo tarifa
+        pasajeroApp.seleccionarTarifa("Uber X");
 
 
         // confirmo pedido
+        pasajeroApp.confirmarPedido();
+
         // emparejamiento chofer
         // chofer acepta
         // empieza viaje y seguimiento

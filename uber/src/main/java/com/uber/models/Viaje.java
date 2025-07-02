@@ -6,12 +6,16 @@ public class Viaje {
     private String origen;
     private String destino;
     // destino
-    // tipoViaje
+    private TipoViaje tipoViaje;
     // estadoViaje
 
     public Viaje(Pasajero pasajero, String origen, String destino){
         this.pasajero = pasajero;
         this.origen = origen;
         this.destino = destino;
+    }
+
+    public void setTipoViaje(TipoViaje tipoViaje){
+        this.tipoViaje = tipoViaje;
     }
 }

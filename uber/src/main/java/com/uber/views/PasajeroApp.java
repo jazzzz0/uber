@@ -5,8 +5,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this t
 
 package com.uber.views;
 
+import java.util.List;
+
 import com.uber.controllers.TipoViajeController;
 import com.uber.models.Pasajero;
+import com.uber.models.TipoViaje;
 import com.uber.models.Viaje;
 
 public class PasajeroApp {
@@ -41,8 +44,14 @@ public class PasajeroApp {
         System.out.println(this.tipoViajeController.getTarifas());
     }
 
-    // mostrarTarifa -> TipoViajeController -> TipoViaje
+    public void seleccionarTarifa(String tarifaSeleccionada){
+        TipoViaje tipoViajeSeleccionado = this.tipoViajeController.getTarifaByName(tarifaSeleccionada);
+        this.viajeActual.setTipoViaje(tipoViajeSeleccionado);
+    }
 
-    public void seleccionarTarifa(){}
+    public void confirmarPedido(){
+        // mensaje de confirmacion
+        // emparejarChofer();
+    }
 
 }
