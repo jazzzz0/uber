@@ -1,15 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package com.uber.controllers;
 
+import java.util.List;
+
+import com.uber.models.TipoViaje;
+import com.uber.repo.TipoViajeRepo;
 
 public class TipoViajeController {
+    TipoViajeRepo repo;
 
-    public void getTarifas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public TipoViajeController(){
+        this.repo = new TipoViajeRepo();
     }
 
+    public List<TipoViaje> getTarifas() {
+        return this.repo.getTarifas();
+    }
 }

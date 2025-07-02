@@ -1,7 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+ 
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template*/
 
 package com.uber.views;
 
@@ -15,15 +15,16 @@ public class PasajeroApp {
 
     private TipoViajeController tipoViajeController;
 
-    public PasajeroApp(Pasajero loggedPasajero){
+    public PasajeroApp(Pasajero loggedPasajero, TipoViajeController tipoViajeController){
         this.loggedPasajero = loggedPasajero;
+        this.tipoViajeController = tipoViajeController;
     }
 
     public void abrirApp(){
         System.out.println("Abriendo app...");
     }
 
-    
+
     public void cerrarApp(){
         System.out.println("Cerrando app...");
     }
@@ -36,11 +37,12 @@ public class PasajeroApp {
     }
 
     public void mostrarTarifas(){
-        this.tipoViajeController.getTarifas();
+        System.out.println("Elige un viaje:");
+        System.out.println(this.tipoViajeController.getTarifas());
     }
 
     // mostrarTarifa -> TipoViajeController -> TipoViaje
-    
+
     public void seleccionarTarifa(){}
 
 }
