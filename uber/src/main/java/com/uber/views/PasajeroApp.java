@@ -50,8 +50,7 @@ public class PasajeroApp {
     }
 
     public void confirmarPedido(){
-        // mensaje de confirmacion
-        // emparejarChofer();
+        emparejarChofer();
     }
 
 }
