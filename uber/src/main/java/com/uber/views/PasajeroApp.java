@@ -50,7 +50,8 @@ public class PasajeroApp {
     }
 
     public void confirmarPedido(){
-        emparejarChofer();
+        this.viajeActual.setEstado(com.uber.models.EstadoViaje.EMPAREJANDO);
+        System.out.println("Pedido confirmado.");
     }
 
 }
