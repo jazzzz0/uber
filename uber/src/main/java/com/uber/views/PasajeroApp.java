@@ -8,19 +8,23 @@ package com.uber.views;
 import java.util.List;
 
 import com.uber.controllers.TipoViajeController;
+import com.uber.models.EstadoViaje;
 import com.uber.models.Pasajero;
 import com.uber.models.TipoViaje;
 import com.uber.models.Viaje;
+import com.uber.controllers.ViajeController;
 
 public class PasajeroApp {
     private Pasajero loggedPasajero;
     private Viaje viajeActual;
 
     private TipoViajeController tipoViajeController;
+    private ViajeController viajeController;
 
-    public PasajeroApp(Pasajero loggedPasajero, TipoViajeController tipoViajeController){
+    public PasajeroApp(Pasajero loggedPasajero, ViajeController viajeController){
         this.loggedPasajero = loggedPasajero;
-        this.tipoViajeController = tipoViajeController;
+        this.tipoViajeController = new TipoViajeController();
+        this.viajeController = viajeController;
     }
 
     public void abrirApp(){
@@ -33,8 +37,7 @@ public class PasajeroApp {
     }
 
     public Viaje seleccionarDestino(String origen, String destino){
-        Viaje viaje = new Viaje(this.loggedPasajero, origen, destino);
-        this.viajeActual = viaje;
+        this.viajeActual = this.viajeController.crearViaje(this.loggedPasajero, origen, destino);
         mostrarTarifas();
         return this.viajeActual;
     }
@@ -46,12 +49,15 @@ public class PasajeroApp {
 
     public void seleccionarTarifa(String tarifaSeleccionada){
         TipoViaje tipoViajeSeleccionado = this.tipoViajeController.getTarifaByName(tarifaSeleccionada);
-        this.viajeActual.setTipoViaje(tipoViajeSeleccionado);
+        this.viajeController.seleccionarTarifa(tipoViajeSeleccionado);
+        System.out.println("Ha seleccionado la tarifa '" + tarifaSeleccionada + "'");
     }
 
     public void confirmarPedido(){
-        this.viajeActual.setEstado(com.uber.models.EstadoViaje.EMPAREJANDO);
+        this.viajeController.actualizarEstado(EstadoViaje.EMPAREJANDO);
         System.out.println("Pedido confirmado.");
+        System.out.println("Empezando emparejamiento.");
+        this.viajeController.emparejarChofer();
     }
 
 }

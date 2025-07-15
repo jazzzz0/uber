@@ -1,6 +1,7 @@
 package com.uber;
 
 import com.uber.controllers.TipoViajeController;
+import com.uber.controllers.ViajeController;
 import com.uber.models.Chofer;
 import com.uber.models.EstadoViaje;
 import com.uber.models.Pasajero;
@@ -16,10 +17,11 @@ public class UberFlow {
 
         Chofer carlosGarcia = new Chofer("Carlos", "Garcia", 12345, "carlos@carlos.com.ar", "password", 4321, true);
 
+        ViajeController viajeController = new ViajeController();
+
         // apps: qué pueden hacer los usuarios
-        TipoViajeController tipoViajeController = new TipoViajeController();
-        PasajeroApp pasajeroApp = new PasajeroApp(yamilaMorais, tipoViajeController);
-        ChoferApp choferApp = new ChoferApp(carlosGarcia);
+        PasajeroApp pasajeroApp = new PasajeroApp(yamilaMorais, viajeController);
+        ChoferApp choferApp = new ChoferApp(carlosGarcia, viajeController);
 
         // Comienza el flujo del caso de uso
         // abro app 
@@ -33,25 +35,22 @@ public class UberFlow {
 
         // confirmo pedido
         pasajeroApp.confirmarPedido();
+        // confirmarPedido() está llamando a viajeController.emparejarChofer()
+        // ese emparejarChofer() llama a choferApp.ofrecerViaje()
+        // ese llama a aceptar() o rechazarPedido()
+
+        // Capaz al poner lo del emparejamiento y un while nos estamos complicando
+        // Tal vez debemos hacerlo de manera más similar al ejemplo de PedidosYa
+        // porque se nos va de las manos
+
+
 
         // emparejamiento chofer
-        // bucle buscando chofer, hasta que uno acepte (si hubiera muchos choferes, acá solo uno)
-        while(viaje.getEstado() == EstadoViaje.EMPAREJANDO){
-            // si el chofer acepta, se cambia el estado del viaje
-            if(choferApp.getLoggedChofer().estaTrabajando()){
-                // ofrezco viaje
-                choferApp.ofrecerViaje(viaje);
-                System.out.println("Chofer " + choferApp.getLoggedChofer().getNombreCompletoString() + " ha aceptado el viaje.");
-                break;
-            }
-        }
-
-        // Controlador de viaje, devuelva el chofer que acepta el viaje
-        // Hacer controladores que interactúen con las vistas y manejen el flujo de cambiar el estado de viajes 
-        // la interacción entre choferes y pasajeros
-
+        choferApp.ofrecerViaje(viaje);
 
         // chofer acepta
+        choferApp.aceptarViaje();
+
         // empieza viaje y seguimiento
         // actualizar ubicacion chofer, hasta cambiar estado a "finalizado" ENUM
         // termina viaje

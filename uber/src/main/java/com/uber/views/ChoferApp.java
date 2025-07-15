@@ -4,6 +4,9 @@
  */
 
 package com.uber.views;
+import java.util.Scanner;
+
+import com.uber.controllers.ViajeController;
 import com.uber.models.Chofer;
 import com.uber.models.EstadoViaje;
 import com.uber.models.Viaje;
@@ -11,23 +14,39 @@ import com.uber.models.Viaje;
 public class ChoferApp {
     private Chofer loggedChofer;
     private Viaje viajeActual;
+    private ViajeController viajeController;
+    private Scanner input = new Scanner(System.in);
 
-    public ChoferApp(Chofer loggedChofer){
+    public ChoferApp(Chofer loggedChofer, ViajeController viajeController){
         this.loggedChofer = loggedChofer;
+        this.viajeController = viajeController;
     }
 
     public Chofer getLoggedChofer() {
         return this.loggedChofer;
     }
 
-    public void ofrecerViaje(Viaje viajeOfrecido){
+    public Chofer ofrecerViaje(Viaje viajeOfrecido){
         System.out.println("Ofreciendo viaje desde " + viajeOfrecido.getOrigen() + " hasta " + viajeOfrecido.getDestino());
         this.viajeActual = viajeOfrecido;
+        System.out.println("¿Quieres aceptarlo? (ingresar n°)\n1. Si\n2. No");
+        String seleccion = input.nextLine();
+        if (seleccion.equals("1")) {
+            aceptarViaje();
+            return this.loggedChofer;
+        } else {
+            rechazarViaje();
+            return null;
+        }
     }
 
     public void aceptarViaje(){
-        System.out.println("Aceptando viaje de " + this.viajeActual.);
-        this.viajeActual.setEstado(EstadoViaje.ACEPTADO);
+        System.out.println("Aceptando viaje de " + this.viajeActual.getPasajero().getNombreCompletoString());
+        this.viajeActual.setEstado(EstadoViaje.ACEPTADO); // Acá cambiar por llamada al controlador pasando el nuevo estado
+    }
+
+    public void rechazarViaje(){
+        System.out.println("Rechazando viaje de " + this.viajeActual.getPasajero().getNombreCompletoString());
     }
 
 }

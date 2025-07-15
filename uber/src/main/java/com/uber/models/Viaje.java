@@ -21,7 +21,7 @@ public class Viaje {
         this.tipoViaje = tipoViaje;
     }
 
-    public EstadoViaje getPasajero(){
+    public Pasajero getPasajero(){
         return this.pasajero;
     }
     
@@ -39,5 +39,9 @@ public class Viaje {
 
     public String getDestino() {
         return this.destino;
+    }
+
+    public void setChofer(Chofer chofer){
+        this.chofer = chofer;
     }
 }
