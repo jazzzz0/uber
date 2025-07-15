@@ -42,7 +42,7 @@ public class ChoferApp {
 
     public void aceptarViaje(){
         System.out.println("Aceptando viaje de " + this.viajeActual.getPasajero().getNombreCompletoString());
-        this.viajeActual.setEstado(EstadoViaje.ACEPTADO); // Acá cambiar por llamada al controlador pasando el nuevo estado
+        this.viajeController.actualizarEstado(EstadoViaje.ACEPTADO); // Acá cambiar por llamada al controlador pasando el nuevo estado
     }
 
     public void rechazarViaje(){
