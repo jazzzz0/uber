@@ -5,9 +5,10 @@ public class Viaje {
     private Chofer chofer;
     private String origen;
     private String destino;
-    // destino
     private TipoViaje tipoViaje;
     private EstadoViaje estado;
+    private SeguimientoViaje seguimiento;
+    private CalificacionViaje calificacion;
 
     public Viaje(Pasajero pasajero, String origen, String destino){
         this.pasajero = pasajero;
@@ -15,6 +16,8 @@ public class Viaje {
         this.destino = destino;
         this.estado = null;
         this.chofer = null;
+        this.seguimiento = null;
+        this.calificacion= null;
     }
 
     public void setTipoViaje(TipoViaje tipoViaje){
@@ -43,5 +46,21 @@ public class Viaje {
 
     public void setChofer(Chofer chofer){
         this.chofer = chofer;
+    }
+
+    public void setSeguimiento(int kmTotal, int kmChofer, int kmTranscurridos){
+        this.seguimiento = new SeguimientoViaje(kmTotal, kmChofer, kmTranscurridos);
+    }
+
+    public int consultarKmTranscurridos(){
+        return this.seguimiento.getKmTranscurridos();
+    }
+
+    public int consultarUbiChofer(){
+        return this.seguimiento.consultarKmFaltantesChofer();
+    }
+
+    public int consultarSeguimiento() {
+        return this.seguimiento.consultarKmFaltantes();
     }
 }

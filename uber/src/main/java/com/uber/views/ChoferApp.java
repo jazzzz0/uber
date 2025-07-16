@@ -20,6 +20,7 @@ public class ChoferApp {
     public ChoferApp(Chofer loggedChofer, ViajeController viajeController){
         this.loggedChofer = loggedChofer;
         this.viajeController = viajeController;
+        this.viajeController.registrarChoferDisponible(this);
     }
 
     public Chofer getLoggedChofer() {
@@ -28,11 +29,10 @@ public class ChoferApp {
 
     public Chofer ofrecerViaje(Viaje viajeOfrecido){
         System.out.println("Ofreciendo viaje desde " + viajeOfrecido.getOrigen() + " hasta " + viajeOfrecido.getDestino());
-        this.viajeActual = viajeOfrecido;
         System.out.println("¿Quieres aceptarlo? (ingresar n°)\n1. Si\n2. No");
         String seleccion = input.nextLine();
         if (seleccion.equals("1")) {
-            aceptarViaje();
+            aceptarViaje(viajeOfrecido);
             return this.loggedChofer;
         } else {
             rechazarViaje();
@@ -40,13 +40,31 @@ public class ChoferApp {
         }
     }
 
-    public void aceptarViaje(){
+    public void aceptarViaje(Viaje viajeAceptado){
+        this.viajeActual = viajeAceptado;
         System.out.println("Aceptando viaje de " + this.viajeActual.getPasajero().getNombreCompletoString());
-        this.viajeController.actualizarEstado(EstadoViaje.ACEPTADO); // Acá cambiar por llamada al controlador pasando el nuevo estado
     }
 
     public void rechazarViaje(){
         System.out.println("Rechazando viaje de " + this.viajeActual.getPasajero().getNombreCompletoString());
+    }
+
+    public void empezarViajeADestino(){
+
+        this.viajeController.empezarViajeADestino();
+
+        int kmFaltantes = this.viajeController.actualizarUbicacion();
+        while (kmFaltantes != 0) { 
+            System.out.println("En " + kmFaltantes + " km llegarás al destino.");
+            kmFaltantes = this.viajeController.actualizarUbicacion();
+        }
+        
+        System.out.println("Llegaron a destino.");
+    }
+
+
+    public void completarViaje(){
+        this.viajeController.completarViaje();
     }
 
 }

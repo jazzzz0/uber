@@ -35,28 +35,21 @@ public class UberFlow {
 
         // confirmo pedido
         pasajeroApp.confirmarPedido();
-        // confirmarPedido() está llamando a viajeController.emparejarChofer()
-        // ese emparejarChofer() llama a choferApp.ofrecerViaje()
-        // ese llama a aceptar() o rechazarPedido()
-
-        // Capaz al poner lo del emparejamiento y un while nos estamos complicando
-        // Tal vez debemos hacerlo de manera más similar al ejemplo de PedidosYa
-        // porque se nos va de las manos
-
-
-
-        // emparejamiento chofer
-        choferApp.ofrecerViaje(viaje);
-
-        // chofer acepta
-        choferApp.aceptarViaje();
 
         // empieza viaje y seguimiento
-        // actualizar ubicacion chofer, hasta cambiar estado a "finalizado" ENUM
+        pasajeroApp.mostrarSeguimiento();
+        choferApp.empezarViajeADestino();
+
         // termina viaje
+        choferApp.completarViaje();
+        
         // calificacion
+        
+
         // comentar
+        
         // envia
+        
         // cerrar app;
 
     }

@@ -5,14 +5,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this t
 
 package com.uber.views;
 
-import java.util.List;
-
 import com.uber.controllers.TipoViajeController;
+import com.uber.controllers.ViajeController;
 import com.uber.models.EstadoViaje;
 import com.uber.models.Pasajero;
+import com.uber.models.Chofer;
 import com.uber.models.TipoViaje;
 import com.uber.models.Viaje;
-import com.uber.controllers.ViajeController;
 
 public class PasajeroApp {
     private Pasajero loggedPasajero;
@@ -54,10 +53,32 @@ public class PasajeroApp {
     }
 
     public void confirmarPedido(){
-        this.viajeController.actualizarEstado(EstadoViaje.EMPAREJANDO);
         System.out.println("Pedido confirmado.");
         System.out.println("Empezando emparejamiento.");
-        this.viajeController.emparejarChofer();
+        Chofer choferEmparejado = this.viajeController.emparejarChofer();
+        System.out.println("Chofer " + choferEmparejado.getNombreCompletoString() + " ha aceptado el viaje.");
+    }
+
+    public void mostrarSeguimiento(){
+        // int kmTranscurridos = this.viajeController.consultarKmTranscurridos();
+        // int kmChofer = this.viajeController.consultarUbiChofer();
+        int kmFaltantesChofer = this.viajeController.consultarUbiChofer();
+        while (kmFaltantesChofer!=0) {
+            System.out.println("El chofer está a " + kmFaltantesChofer + " km de ti.");
+            kmFaltantesChofer = this.viajeController.consultarUbiChofer();
+        }
+
+        System.out.println("El chofer te está esperando...");
+        // this.viajeController.empezarViajeADestino();
+
+
+        // int kmFaltantes = this.viajeController.actualizarUbicacion();
+        // while (kmFaltantes >= 0) { 
+        //     System.out.println("En " + kmFaltantes + " km llegarás a tu destino.");
+        //     kmFaltantes = this.viajeController.actualizarUbicacion();
+        // }
+
+
     }
 
 }

@@ -1,6 +1,10 @@
 package com.uber.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.uber.models.Chofer;
+import com.uber.views.ChoferApp;
 import com.uber.models.EstadoViaje;
 import com.uber.models.Pasajero;
 import com.uber.models.TipoViaje;
@@ -8,7 +12,14 @@ import com.uber.models.Viaje;
 
 public class ViajeController {
     private Viaje viajeActual;
+    private List<ChoferApp> choferesDisponibles;
+
     public ViajeController(){
+        this.choferesDisponibles = new ArrayList<>();
+    }
+
+    public void registrarChoferDisponible(ChoferApp choferDisponible){
+        this.choferesDisponibles.add(choferDisponible);
     }
 
     public void actualizarEstado(EstadoViaje estadoNuevo){
@@ -24,23 +35,53 @@ public class ViajeController {
         this.viajeActual.setTipoViaje(tipoViajeSeleccionado);
     }
 
-    public void emparejarChofer(){
-
-        // Cómo hacemos para que conozca al chofer así le puede ofrecer el viaje?
-        // Existe la forma sin hacer ChoferRepo?
+    public Chofer emparejarChofer(){
+        actualizarEstado(EstadoViaje.EMPAREJANDO);
+        Chofer chofer = null;
 
         while(this.viajeActual.getEstado() == EstadoViaje.EMPAREJANDO){
             // si el chofer acepta, se cambia el estado del viaje
+            ChoferApp choferApp = this.choferesDisponibles.get(0);
             if(choferApp.getLoggedChofer().estaTrabajando()){
                 // ofrezco viaje
-                Chofer chofer = choferApp.ofrecerViaje(this.viajeActual);
+                chofer = choferApp.ofrecerViaje(this.viajeActual);
+                if (chofer != null){
+                    actualizarEstado(EstadoViaje.ACEPTADO);
+                    break;
+                }
                 this.viajeActual.setChofer(chofer);
-                // System.out.println("Chofer " + choferApp.getLoggedChofer().getNombreCompletoString() + " ha aceptado el viaje.");
             }
         }
+        empezarSeguimiento();
+        return chofer;
+    }
 
-        // this.viajeActual.setChofer() = new Chofer("","",1,"","",1, true);
-        // return new Chofer();
+    public void empezarSeguimiento(){
+        actualizarEstado(EstadoViaje.CHOFER_EN_CAMINO);
+        this.viajeActual.setSeguimiento(10, 3, 0);
+
+    }
+
+    public void empezarViajeADestino(){
+        actualizarEstado(EstadoViaje.EN_CURSO);
+    }
+
+    public int consultarKmTranscurridos(){
+        return this.viajeActual.consultarKmTranscurridos();
+    }
+
+
+    public int consultarUbiChofer(){
+        return this.viajeActual.consultarUbiChofer();
+    }
+
+    public int actualizarUbicacion(){
+        return this.viajeActual.consultarSeguimiento();
+    }
+
+
+    public void completarViaje(){
+        actualizarEstado(EstadoViaje.COMPLETADO);
     }
 
 }
