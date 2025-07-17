@@ -7,9 +7,8 @@ package com.uber.views;
 
 import com.uber.controllers.TipoViajeController;
 import com.uber.controllers.ViajeController;
-import com.uber.models.EstadoViaje;
-import com.uber.models.Pasajero;
 import com.uber.models.Chofer;
+import com.uber.models.Pasajero;
 import com.uber.models.TipoViaje;
 import com.uber.models.Viaje;
 
@@ -79,6 +78,10 @@ public class PasajeroApp {
         // }
 
 
+    }
+    public void calificarViaje(int calificacion, String comentario) {
+        this.viajeController.calificarViaje(calificacion, comentario);
+        System.out.println("Gracias por calificar el viaje con " + calificacion + " estrellas.");
     }
 
 }

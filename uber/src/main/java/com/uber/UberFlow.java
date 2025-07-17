@@ -1,9 +1,7 @@
 package com.uber;
 
-import com.uber.controllers.TipoViajeController;
 import com.uber.controllers.ViajeController;
 import com.uber.models.Chofer;
-import com.uber.models.EstadoViaje;
 import com.uber.models.Pasajero;
 import com.uber.models.Viaje;
 import com.uber.views.ChoferApp;
@@ -45,12 +43,10 @@ public class UberFlow {
         
         // calificacion
         
-
-        // comentar
-        
-        // envia
+        pasajeroApp.calificarViaje(5, "Excelente viaje, muy buena música Charly.");
         
         // cerrar app;
+        pasajeroApp.cerrarApp();
 
     }
 

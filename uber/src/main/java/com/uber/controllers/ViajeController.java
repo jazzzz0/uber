@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.uber.models.Chofer;
-import com.uber.views.ChoferApp;
 import com.uber.models.EstadoViaje;
 import com.uber.models.Pasajero;
 import com.uber.models.TipoViaje;
 import com.uber.models.Viaje;
+import com.uber.views.ChoferApp;
 
 public class ViajeController {
     private Viaje viajeActual;
@@ -82,6 +82,11 @@ public class ViajeController {
 
     public void completarViaje(){
         actualizarEstado(EstadoViaje.COMPLETADO);
+    }
+
+    public void calificarViaje(int calificacion, String comentario) {
+        this.viajeActual.setCalificacion(calificacion, comentario);
+
     }
 
 }

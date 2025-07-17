@@ -63,4 +63,8 @@ public class Viaje {
     public int consultarSeguimiento() {
         return this.seguimiento.consultarKmFaltantes();
     }
+    public void setCalificacion(int calificacion, String comentario) {
+        this.calificacion = new CalificacionViaje(calificacion, comentario);
+        
+    }
 }
